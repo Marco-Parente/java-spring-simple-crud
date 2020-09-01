@@ -1,0 +1,38 @@
+version: "3.7"
+services:
+  api:
+    restart: always
+    build: ./api
+    container_name: laudos-api
+    working_dir: /api
+    volumes:
+      - ./api:/api
+    expose:
+      - "8080"
+    command: mvn clean spring-boot:run
+    networks:
+      - laudosNetwork
+  nginx:
+    image: nginx:alpine
+    container_name: laudos-nginx
+    restart: always
+    ports:
+      - 8801:80
+    volumes:
+      - ./.docker-compose/nginx:/etc/nginx/conf.d/
+    networks:
+      - laudosNetwork
+
+  db:
+    image: ejklock/oracledatabase:11.2.0.2
+    container_name: laudos-db
+    restart: always
+    shm_size: "1gb"
+    ports:
+      - 1521:1521
+      - 5500:5500
+    networks:
+      - laudosNetwork
+networks:
+  laudosNetwork:
+    driver: bridge
