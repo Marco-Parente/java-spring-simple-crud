@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan({"br.politec.laudos.api.Index"})
+@ComponentScan({"br.politec.laudos.api"})
 public class ApiApplication {
 
 	public static void main(String[] args) throws Exception {
